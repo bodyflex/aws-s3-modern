@@ -16,7 +16,7 @@ export default class S3 {
     return new Promise((resolve, reject) => {
       this._s3.upload(
         {
-          Bucket,
+          Bucket: this._bucket,
           Key: filename,
           Body: buffer,
           ContentType,

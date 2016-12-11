@@ -16,9 +16,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Bucket = process.env.AWS_BUCKET;
-var region = process.env.AWS_REGION;
-
 var S3 = function () {
   function S3(bucket, region) {
     _classCallCheck(this, S3);
@@ -31,7 +28,7 @@ var S3 = function () {
   _createClass(S3, [{
     key: '_getBaseUrl',
     value: function _getBaseUrl(filename) {
-      return 'https://s3.' + this._region + '.amazonaws.com/' + this._Bucket + '/' + this._filename;
+      return 'https://s3.' + this._region + '.amazonaws.com/' + this._bucket + '/' + filename;
     }
   }, {
     key: 'upload',
@@ -40,7 +37,7 @@ var S3 = function () {
 
       return new Promise(function (resolve, reject) {
         _this._s3.upload({
-          Bucket: Bucket,
+          Bucket: _this._bucket,
           Key: filename,
           Body: buffer,
           ContentType: ContentType,

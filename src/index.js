@@ -1,8 +1,5 @@
 import AWS from 'aws-sdk';
 
-const Bucket = process.env.AWS_BUCKET;
-const region = process.env.AWS_REGION;
-
 export default class S3 {
   constructor(bucket, region) {
     this._s3 = new AWS.S3({signatureVersion: 'v4', region});
@@ -10,7 +7,7 @@ export default class S3 {
     this._region = region;
   }
   _getBaseUrl(filename) {
-    return 'https://s3.' + this._region + '.amazonaws.com/' + this._Bucket + '/' + this._filename;
+    return 'https://s3.' + this._region + '.amazonaws.com/' + this._bucket + '/' + filename;
   }
   upload(buffer, filename, ContentType) {
     return new Promise((resolve, reject) => {

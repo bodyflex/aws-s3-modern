@@ -12,8 +12,6 @@ var _awsSdk2 = _interopRequireDefault(_awsSdk);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var S3 = function () {
@@ -60,43 +58,13 @@ var S3 = function () {
     }
   }, {
     key: 'upsert',
-    value: function () {
-      var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(buffer, filename, ContentType) {
-        var url;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return this.getUrl(filename);
-
-              case 2:
-                url = _context.sent;
-
-                if (!url) {
-                  _context.next = 5;
-                  break;
-                }
-
-                return _context.abrupt('return', url);
-
-              case 5:
-                return _context.abrupt('return', this.upload(buffer, filename, ContentType));
-
-              case 6:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function upsert(_x, _x2, _x3) {
-        return _ref.apply(this, arguments);
+    value: async function upsert(buffer, filename, ContentType) {
+      var url = await this.getUrl(filename);
+      if (url) {
+        return url;
       }
-
-      return upsert;
-    }()
+      return this.upload(buffer, filename, ContentType);
+    }
   }]);
 
   return S3;
